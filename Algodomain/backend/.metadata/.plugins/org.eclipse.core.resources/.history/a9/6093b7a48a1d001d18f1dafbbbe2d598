@@ -1,0 +1,43 @@
+package com.example.ecommerce.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.ecommerce.exception.ResourceNotFoundException;
+import com.example.ecommerce.model.Product;
+import com.example.ecommerce.repository.ProductRepository;
+
+@RestController
+@RequestMapping("/api/v1/")
+public class ProductController {
+
+	@Autowired
+	private ProductRepository productRepository;
+	
+	//get all product 
+	@GetMapping("/products")
+public List<Product>getAllProduct(){
+	return productRepository.findAll();	
+}
+	
+	//add product rest api
+	@PostMapping("/products")
+	public Product createProduct(@RequestBody Product product) {
+		return productRepository.save(product);
+}
+	
+	//get product by seller rest api
+	@GetMapping("/products/{id}")
+	public ResponseEntity<Product> getProductByProductId(@PathVariable Long id) {
+		Product product=productRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException("Product dosent exist with id "+id));
+		return ResponseEntity.ok(product);
+	}
+}

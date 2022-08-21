@@ -1,0 +1,11 @@
+package com.example.ecommerce.model;
+
+public class UserLogin {
+	private Long id;
+	private String firstName;
+	private String lastName;
+	private String gmailId;
+	private String userName;
+	
+
+}

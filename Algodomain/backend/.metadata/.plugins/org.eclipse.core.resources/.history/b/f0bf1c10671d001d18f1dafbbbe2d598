@@ -1,0 +1,7 @@
+package com.example.ecommerce.model;
+
+public class Product {
+	private long Id;
+	private String Name;
+	
+}
